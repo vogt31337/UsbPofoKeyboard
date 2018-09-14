@@ -31,18 +31,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
  * Layout: 59key
  * ,-----------------------------------------------------------.
- * |Esc|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|  \|  `|
+ * |Esc|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|   BS  |
  * |-----------------------------------------------------------|
- * |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]| BS  |
+ * |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|     |
+ * |------------------------------------------------------     |
+ * |Caps  |  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  ´|Return  |
  * |-----------------------------------------------------------|
- * |Contro|  A|  S|  D|  F|  G|  H|  J|  K|  L|Fn3|  '|Return  |
+ * |Shft|  \|  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /| Up|  Shft|
  * |-----------------------------------------------------------|
- * |Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  .|Fn2|Shift     |
- * |-----------------------------------------------------------|
- * |Ctrl |   |Alt  |           Fn4             |Alt  |   |Fn1  |
- * `-----'   `---------------------------------------'   `-----'
+ * |Ctrl| Fn |Atari| Alt|      Spc           |Del|Lft|Dwn|Rght |
+ * `-----------------------------------------------------------'
  *
- * Matrix: 12x8
+ * Matrix: 8x8
  *    |       0 |       1 |       2 |       3 |       4 |       5 |       6 |       7
  * ---+---------+---------+---------+---------+---------+---------+---------+---------
  *  0 |         |         | LCTRL   |         |         |         | RCTRL   |        
@@ -59,7 +59,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *  B | LALT    |         |         |         |         |         |         | RALT   
  *  Key*1 This key locates between Equal and Backspace.
  *
- *  Original matrix here: http://geekhack.org/showthread.php?7767-Wireless-Model-M&p=133911&viewfull=1#post133911
  */
 #define KEYMAP( \
     K22, K23, K33, K43, K53, K52, K72, K73, K83, K93, KA3, KA2, K82, K64, K61, \
@@ -113,16 +112,16 @@ static const uint8_t PROGMEM fn_keycode[] = {
 static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Layer 0: Default Layer
      * ,-----------------------------------------------------------.
-     * |Esc|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|  \|  `|
+     * |Esc|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|   BS  |
      * |-----------------------------------------------------------|
-     * |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]| BS  |
+     * |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|     |
+     * |------------------------------------------------------     |
+     * |Caps  |  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  ´|Return  |
      * |-----------------------------------------------------------|
-     * |Contro|  A|  S|  D|  F|  G|  H|  J|  K|  L|Fn3|  '|Return  |
-     * |-----------------------------------------------------------|
-     * |Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  .|Fn2|Shift     |
-     * |-----------------------------------------------------------|
-     * |Ctrl |   |Alt  |           Fn4             |Alt  |   |Fn1  |
-     * `-----'   `---------------------------------------'   `-----'
+     * |Shft|  \|  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /| Up|  Shft|
+	 * |-----------------------------------------------------------|
+     * |Ctrl| Fn |Atari| Alt|      Space         |Del|Lft|Dwn|Rght |
+     * `-----------------------------------------------------------'
      */
     KEYMAP(ESC, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSLS,GRV, \
            TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,BSPC, \
@@ -131,18 +130,18 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            LGUI,     LALT,          FN4,           RALT,     FN1),
 
 
-    /* Layer 1: HHKB mode (HHKB Fn)
+    /* Layer 1: Fn mode
      * ,-----------------------------------------------------------.
-     * |Esc| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Ins|Del|
+     * |Esc| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|   |   |       |
      * |-----------------------------------------------------------|
-     * |Caps |   |   |   |   |   |   |   |Psc|Slk|Pus|Up |   |     |
+     * |Tab  |   |   |   |   |   |   |   |   |Off|   |   |   |     |
+     * |------------------------------------------------------     |
+     * |Caps  |   |   |   |   |   |   |   |   |   |   |   |Return  |
      * |-----------------------------------------------------------|
-     * |Contro|VoD|VoU|Mut|   |   |  *|  /|Hom|PgU|Lef|Rig|        |
+     * |Shft|   |   |   |   |   |   |   |   |   |   |   |PgU|  Shft|
      * |-----------------------------------------------------------|
-     * |Shift   |   |   |   |   |   |  +|  -|End|PgD|Dow|Shift     |
-     * |-----------------------------------------------------------|
-     * |Ctrl |   |Alt  |           Space           |Alt  |   |Fn1  |
-     * `-----'   `---------------------------------------'   `-----'
+     * |Ctrl| Fn |Atari| Alt|      Space         |   |Hme|PgD|End  |
+     * `-----------------------------------------------------------'
      */ 
     KEYMAP(ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, INS, DEL, \
            CAPS,NO,  NO,  NO,  NO,  NO,  NO,  NO,  PSCR,SLCK,BRK, UP,  NO,  NO, \
@@ -151,67 +150,24 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            LGUI,     LALT,          SPC,           RALT,     FN1),
 
 
-    /* Layer 2: Vi mode (Quote/Rmeta)
+    /* Layer 2: Atari mode
      * ,-----------------------------------------------------------.
-     * |  `| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|   |   |
+     * |Esc|   |   |   |   |   |   |  7|  8|  9|  +|   |   |   BS  |
      * |-----------------------------------------------------------|
-     * |  \  |Hom|PgD|Up |PgU|End|Hom|PgD|PgU|End|   |   |   |     |
+     * |Tab  |   |Wor|Edt|   |   |   |  4|  5|  6|  *|   |   |     |
+     * |------------------------------------------------------     |
+     * |Caps  |Adr|Set|Dia|   |   |   |  1|  2|  3|  -|   |       =|
      * |-----------------------------------------------------------|
-     * |Contro|   |Lef|Dow|Rig|   |Lef|Dow|Up |Rig|   |   |        |
-     * |-----------------------------------------------------------|
-     * |Shift   |   |   |   |   |   |Hom|PgD|PgU|End|xxx|Shift     |
-     * |-----------------------------------------------------------|
-     * |Ctrl |   |Alt  |           Space           |Alt  |   |Fn1  |
-     * `-----'   `---------------------------------------'   `-----'
+     * |Shft|   |Men|   |Cal|   |   |   |  0|   |  .|  /|CnU|  Shft|
+	 * |-----------------------------------------------------------|
+     * |Ctrl| Fn |Atari| Alt|      Space         |   |   |CnD|     |
+     * `-----------------------------------------------------------'
      */
     KEYMAP(GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, NO,  NO, \
            BSLS,HOME,PGDN,UP,  PGUP,END, HOME,PGDN,PGUP,END, NO,  NO,  NO,  NO, \
            LCTL,NO,  LEFT,DOWN,RGHT,NO,  LEFT,DOWN,UP,  RGHT,NO,  NO,  NO, \
            LSFT,NO,  NO,  NO,  NO,  NO,  HOME,PGDN,PGUP,END, FN2, RSFT, \
            LGUI,     LALT,          SPC,           RALT,     NO),
-
-
-
-    /* Layer 3: Mouse mode (Semicolon)
-     * ,-----------------------------------------------------------.
-     * |  `| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|   |   |
-     * |-----------------------------------------------------------|
-     * |  \  |MwL|MwD|McU|MwU|MwR|MwL|MwD|MwU|MwR|   |   |   |     |
-     * |-----------------------------------------------------------|
-     * |Contro|   |McL|McD|McR|   |McL|McD|McU|McR|xxx|   |        |
-     * |-----------------------------------------------------------|
-     * |Shift   |   |   |Mb1|Mb2|Mb3|Mb2|Mb1|   |   |   |Shift     |
-     * |-----------------------------------------------------------|
-     * |Ctrl |   |Alt  |           Space           |Alt  |   |     |
-     * `-----'   `---------------------------------------'   `-----'
-     * Mc: Mouse Cursor / Mb: Mouse Button / Mw: Mouse Wheel 
-     */
-    KEYMAP(GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, NO, NO, \
-           BSLS,WH_L,WH_D,MS_U,WH_U,WH_R,WH_L,WH_D,WH_U,WH_R,NO,  NO,  NO,  NO, \
-           LCTL,NO,  MS_L,MS_D,MS_R,NO,  MS_L,MS_D,MS_U,MS_R,FN3, NO,  NO, \
-           LSFT,NO,  NO,  BTN1,BTN2,BTN3,BTN2,BTN1,NO,  NO,  NO,  RSFT, \
-           LGUI,     LALT,          BTN1,          RALT,     NO),
-
-
-    /* Layer 4: Matias half keyboard style (Space)
-     * ,-----------------------------------------------------------.
-     * |Esc| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|Delete |
-     * |-----------------------------------------------------------|
-     * |Backs|  P|  O|  I|  U|  Y|  T|  R|  E|  W|  Q|   |   |Tab  |
-     * |-----------------------------------------------------------|
-     * |Contro|  ;|  L|  K|  J|  H|  G|  F|  D|  S|  A|Con|Control |
-     * |-----------------------------------------------------------|
-     * |Shift   |  /|  .|  ,|  M|  N|  B|  V|  C|  X|  Z|Shift     |
-     * |-----------------------------------------------------------|
-     * |Ctrl |   |Alt  |           Fn4             |Alt  |   |     |
-     * `-----'   `---------------------------------------'   `-----'
-     */
-    KEYMAP(MINS,0,   9,   8,   7,   6,   5,   4,   3,   2,   1,   NO,  NO,  NO, ESC, \
-           BSPC,P,   O,   I,   U,   Y,   T,   R,   E,   W,   Q,   NO,  NO,  TAB, \
-           LCTL,SCLN,L,   K,   J,   H,   G,   F,   D,   S,   A,   RCTL,RCTL, \
-           LSFT,SLSH,DOT, COMM,M,   N,   B,   V,   C,   X,   Z,   RSFT, \
-           LGUI,     LALT,          FN4,           RALT,     NO),
-
 };
 
 
