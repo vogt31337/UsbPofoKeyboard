@@ -12,7 +12,9 @@
 /*
  * Atari Portfolio Keyboard
  *
- * D2 - D10, D14 - D16, A0 - A3
+ * Cols:  6(D6),  7(D7),  8(D8),  9(D9), 10(D10), 16(D14), 14(D16), 15(D15)
+ * Rows:  2(D2),  3(D3),  4(D4),  5(D5), 21(A3) , 20(A2) , 19(A1) , 18(A0)
+ *
  * Pin usage:
  *   COL: PD1, PD0, PD4, PC6, PD7, PE6, PB4, PB5
  *   ROW: PB5, PB6, PB1-PB3, PF5-7
