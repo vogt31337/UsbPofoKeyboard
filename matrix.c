@@ -12,11 +12,11 @@
 /*
  * Atari Portfolio Keyboard
  *
- * Cols:  6(D6),  7(D7),  8(D8),  9(D9), 10(D10), 16(D14), 14(D16), 15(D15)
- * Rows:  2(D2),  3(D3),  4(D4),  5(D5), 21(A3) , 20(A2) , 19(A1) , 18(A0)
+ * Cols:  6(D6),  7(D7), 15(D15), 16(D14), 14(D16),  8(D8),  9(D9), 10(D10)
+ * Rows:  2(D2),  3(D3),   4(D4),   5(D5), 21(A3) , 20(A2) , 19(A1), 18(A0)
  *
  * Pin usage:
- *   COL: PD7, PE6, PB4, PB5, PB6, PB3, PB2, PB1
+ *   COL: PD7, PE6, PB1, PB2, PB3, PB4, PB5, PB6
  *   ROW: PD1, PD0, PD4, PC6, PF4, PF5, PF6, PF7
  */
 static uint8_t debouncing = DEBOUNCE;
@@ -28,7 +28,6 @@ static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 static matrix_row_t read_cols(void);
 static void unselect_rows(void);
 static void select_row(uint8_t row);
-
 
 void matrix_init(void)
 {
@@ -113,12 +112,15 @@ static matrix_row_t read_cols(void)
 
 inline
 static void unselect_rows(void)
+// ROW: PD1, PD0, PD4, PC6, PF4, PF5, PF6, PF7
 {
     // Hi-Z(DDR:0, PORT:0) to unselect
-    DDRB  &= ~0b10010001;
-    PORTB &= ~0b10010001;
-    DDRF  &= ~0b00011111;
-    PORTF &= ~0b00011111;
+    DDRD  &= ~0b00001011;
+    PORTB &= ~0b00001011;
+    DDRC  &= ~0b01000000;
+    PORTC &= ~0b01000000;
+    DDRF  &= ~0b11110000;
+    PORTF &= ~0b11110000;
 }
 
 inline
