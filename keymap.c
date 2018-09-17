@@ -1,5 +1,5 @@
 /*
-Copyright 2012 Jun Wako <wakojun@gmail.com>
+Copyright 2018 Mike Vogt <vogt31337@gmx.de>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -16,7 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 /* 
- * Keymap for Macway mod
+ * Keymap for Pofo mod
  */
 #include <stdint.h>
 #include <stdbool.h>
@@ -31,58 +31,48 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
  * Layout: 59key
  * ,-----------------------------------------------------------.
- * |Esc|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|   BS  |
+ * |Esc|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|   BS  | 14
  * |-----------------------------------------------------------|
- * |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|     |
+ * |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|     | 13
  * |------------------------------------------------------     |
- * |Caps  |  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  ´|Return  |
+ * |Caps  |  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  ´|Return  | 13
  * |-----------------------------------------------------------|
- * |Shft|  \|  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /| Up|  Shft|
+ * |Shft|  \|  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /| Up|  Shft| 14
  * |-----------------------------------------------------------|
- * |Ctrl| Fn |Atari| Alt|      Spc           |Del|Lft|Dwn|Rght |
+ * |Ctrl| Fn |Atari| Alt|      Spc           |Del|Lft|Dwn|Rght |  9
  * `-----------------------------------------------------------'
  *
  * Matrix: 8x8
  *    |       0 |       1 |       2 |       3 |       4 |       5 |       6 |       7
  * ---+---------+---------+---------+---------+---------+---------+---------+---------
- *  0 |         |         | LCTRL   |         |         |         | RCTRL   |        
- *  1 |         | LSHIFT  |         |         |         |         | RSHIFT  |        
- *  2 |         | Tab     | Grave   | 1       | Q       | A       | Z       |        
- *  3 |         | Cpslck  |         | 2       | W       | S       | X       |        
- *  4 |         |         |         | 3       | E       | D       | C       |        
- *  5 | G       | T       | 5       | 4       | R       | F       | V       | B      
- *  6 |         | Bckspc  |         |         | Key*1   | Bckslsh | Enter   | Space  
- *  7 | H       | Y       | 6       | 7       | U       | J       | M       | N      
- *  8 |         | Rbrckt  | Equal   | 8       | I       | K       | Comma   |
- *  9 |         |         |         | 9       | O       | L       | Dot     |        
- *  A |         | Lbrckt  | Minus   | 0       | P       | Smcolon |         | Slash  
- *  B | LALT    |         |         |         |         |         |         | RALT   
- *  Key*1 This key locates between Equal and Backspace.
+ *  0 | LCTRL   | Tab     | Up      | F       | 0       | S       | <       | C      
+ *  1 | 1       | Atari   | Q       | J       | ß       | 4       | Space   | B      
+ *  2 | 3       | R       | O       | Right   | Ü       | RSFT    | .       | M      
+ *  3 | 5       | Enter   | BS      | 8       | Ä       | ,       | Fn      | A      
+ *  4 |         | W       | LALT    | H       | I       | P       | Y       | V      
+ *  5 | 2       | E       | U       | Entf    | LSFT    | G       |         | N      
+ *  6 | D       | T       | 7       | Caps    | Left    | Down    |         | -      
+ *  7 | 6       | Z       | 9       | K       | +       | L       | X       | Esc    
  *
  */
 #define KEYMAP( \
-    K22, K23, K33, K43, K53, K52, K72, K73, K83, K93, KA3, KA2, K82, K64, K61, \
-    K21, K24, K34, K44, K54, K51, K71, K74, K84, K94, KA4, KA1, K81, K65, \
-    K31, K25, K35, K45, K55, K50, K70, K75, K85, K95, KA5, KA0, K66, \
-    K11, K26, K36, K46, K56, K57, K77, K76, K86, K96, KA7, K16, \
-    K02, KB0,      K67,      KB7, K06 \
+    K77, K01, K05, K02, K51, K03, K07, K26, K33, K27, K40, K76, K  , K23,\
+    K10, K21, K14, K15, K12, K16, K64, K25, K44, K22, K54, K  , K  ,\
+    K36, K73, K50, K06, K30, K55, K34, K31, K37, K57, K  , K  , K13\
+    K45, K  , K17, K67, K70, K74, K71, K75, K72, K53, K62, K  , K20, K52,\
+    K00, K63, K11, K24, K61, K35, K46, K56, K32 \
 ) { \
-    { KC_NO,    KC_NO,    KC_##K02, KC_NO,    KC_NO,    KC_NO,    KC_##K06, KC_NO    }, \
-    { KC_NO,    KC_##K11, KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_##K16, KC_NO    }, \
-    { KC_NO,    KC_##K21, KC_##K22, KC_##K23, KC_##K24, KC_##K25, KC_##K26, KC_NO    }, \
-    { KC_NO,    KC_##K31, KC_NO,    KC_##K33, KC_##K34, KC_##K35, KC_##K36, KC_NO    }, \
-    { KC_NO,    KC_NO,    KC_NO,    KC_##K43, KC_##K44, KC_##K45, KC_##K46, KC_NO    }, \
-    { KC_##K50, KC_##K51, KC_##K52, KC_##K53, KC_##K54, KC_##K55, KC_##K56, KC_##K57 }, \
-    { KC_NO,    KC_##K61, KC_NO,    KC_NO,    KC_##K64, KC_##K65, KC_##K66, KC_##K67 }, \
-    { KC_##K70, KC_##K71, KC_##K72, KC_##K73, KC_##K74, KC_##K75, KC_##K76, KC_##K77 }, \
-    { KC_NO,    KC_##K81, KC_##K82, KC_##K83, KC_##K84, KC_##K85, KC_##K86, KC_NO    }, \
-    { KC_NO,    KC_NO,    KC_NO,    KC_##K93, KC_##K94, KC_##K95, KC_##K96, KC_NO    }, \
-    { KC_##KA0, KC_##KA1, KC_##KA2, KC_##KA3, KC_##KA4, KC_##KA5, KC_NO,    KC_##KA7 }, \
-    { KC_##KB0, KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_##KB7 }, \
+    { KC_##K00, KC_##K10, KC_##K20, KC_##K30, KC_##K40, KC_##K50, KC_##K60, KC_##K70 }, \
+	{ KC_##K01, KC_##K11, KC_##K21, KC_##K31, KC_##K41, KC_##K51, KC_##K61, KC_##K71 }, \
+	{ KC_##K02, KC_##K12, KC_##K22, KC_##K32, KC_##K42, KC_##K52, KC_##K62, KC_##K72 }, \
+	{ KC_##K03, KC_##K13, KC_##K23, KC_##K33, KC_##K43, KC_##K53, KC_##K63, KC_##K73 }, \
+	{ KC_##K04, KC_##K14, KC_##K24, KC_##K34, KC_##K44, KC_##K54, KC_##K64, KC_##K74 }, \
+	{ KC_##K05, KC_##K15, KC_##K25, KC_##K35, KC_##K45, KC_##K55, KC_##K65, KC_##K75 }, \
+	{ KC_##K06, KC_##K16, KC_##K26, KC_##K36, KC_##K46, KC_##K56, KC_##K66, KC_##K76 }, \
+    { KC_##K07, KC_##K17, KC_##K27, KC_##K37, KC_##K47, KC_##K57, KC_##K67, KC_##K77 }, \
 }
 
 #define KEYCODE(layer, row, col) (pgm_read_byte(&keymaps[(layer)][(row)][(col)]))
-
 
 // Assign Fn key(0-7) to a layer to which switch with the Fn key pressed.
 static const uint8_t PROGMEM fn_layer[] = {
@@ -112,42 +102,42 @@ static const uint8_t PROGMEM fn_keycode[] = {
 static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Layer 0: Default Layer
      * ,-----------------------------------------------------------.
-     * |Esc|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|   BS  |
+     * |Esc|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|   BS  | 14
      * |-----------------------------------------------------------|
-     * |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|     |
+     * |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|     | 13
      * |------------------------------------------------------     |
-     * |Caps  |  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  ´|Return  |
+     * |Caps  |  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  ´|Return  | 13
      * |-----------------------------------------------------------|
-     * |Shft|  \|  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /| Up|  Shft|
+     * |Shft|  \|  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /| Up|  Shft| 14
 	 * |-----------------------------------------------------------|
-     * |Ctrl| Fn |Atari| Alt|      Space         |Del|Lft|Dwn|Rght |
+     * |Ctrl| Fn |Atari| Alt|      Space         |Del|Lft|Dwn|Rght |  9
      * `-----------------------------------------------------------'
      */
-    KEYMAP(ESC, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, BSLS,GRV, \
-           TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,BSPC, \
-           LCTL,A,   S,   D,   F,   G,   H,   J,   K,   L,   FN3, QUOT,ENT, \
-           LSFT,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, FN2, FN1, \
-           LGUI,     LALT,          FN4,           RALT,     FN1),
+    KEYMAP(  ESC,   1,   2,   3,   4,   5,   6,   7,   8,   9,   0, MINS, EQL, BSPC, \
+             TAB,   Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P, LBRC,RBRC, \
+            CAPS,   A,   S,   D,   F,   G,   H,   J,   K,   L,SCLN, QUOT, ENT, \
+            LSFT,BSLS,   Z,   X,   C,   V,   B,   N,   M,COMM, DOT, SLSH,  UP, RSFT \
+           LCTRL, FN1, FN2,LALT,          SPC,              DELETE, LEFT,DOWN, RIGHT),
 
 
     /* Layer 1: Fn mode
      * ,-----------------------------------------------------------.
-     * |Esc| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|   |   |       |
+     * |Esc| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|   |   |       | 14
      * |-----------------------------------------------------------|
-     * |Tab  |   |   |   |   |   |   |   |   |Off|   |   |   |     |
+     * |Tab  |   |   |   |   |   |   |   |   |Off|   |   |   |     | 13
      * |------------------------------------------------------     |
-     * |Caps  |   |   |   |   |   |   |   |   |   |   |   |Return  |
+     * |Caps  |   |   |   |   |   |   |   |   |   |   |   |Return  | 13
      * |-----------------------------------------------------------|
-     * |Shft|   |   |   |   |   |   |   |   |   |   |   |PgU|  Shft|
+     * |Shft|   |   |   |   |   |   |   |   |   |   |   |PgU|  Shft| 14
      * |-----------------------------------------------------------|
-     * |Ctrl| Fn |Atari| Alt|      Space         |   |Hme|PgD|End  |
+     * |Ctrl| Fn |Atari| Alt|      Space         |   |Hme|PgD|End  |  9
      * `-----------------------------------------------------------'
      */ 
-    KEYMAP(ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, INS, DEL, \
-           CAPS,NO,  NO,  NO,  NO,  NO,  NO,  NO,  PSCR,SLCK,BRK, UP,  NO,  NO, \
-           LCTL,VOLD,VOLU,MUTE,NO,  NO,  PAST,PSLS,HOME,PGUP,LEFT,RGHT,NO, \
-           LSFT,NO,  NO,  NO,  NO,  NO,  PPLS,PMNS,END, PGDN,DOWN,FN1, \
-           LGUI,     LALT,          SPC,           RALT,     FN1),
+    KEYMAP(  ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9, F10,  NO,  NO, NO, \
+             TAB, NO,  NO,  NO,  NO,  NO,  NO,  NO,  NO, PWR,  NO,  NO,  NO, \
+            CAPS, NO,  NO,  NO,  NO,  NO,  NO,  NO,  NO,  NO,  NO,  NO, ENT, \
+            LSFT, NO,  NO,  NO,  NO,  NO,  NO,  NO,  NO,  NO,  NO,  NO,PGUP, RSFT, \
+           LCTRL,FN1, FN2,LALT,          SPC,                  NO,HOME,PGDN, END),
 
 
     /* Layer 2: Atari mode
@@ -163,11 +153,11 @@ static const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |Ctrl| Fn |Atari| Alt|      Space         |   |   |CnD|     |
      * `-----------------------------------------------------------'
      */
-    KEYMAP(GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, NO,  NO, \
-           BSLS,HOME,PGDN,UP,  PGUP,END, HOME,PGDN,PGUP,END, NO,  NO,  NO,  NO, \
-           LCTL,NO,  LEFT,DOWN,RGHT,NO,  LEFT,DOWN,UP,  RGHT,NO,  NO,  NO, \
-           LSFT,NO,  NO,  NO,  NO,  NO,  HOME,PGDN,PGUP,END, FN2, RSFT, \
-           LGUI,     LALT,          SPC,           RALT,     NO),
+    KEYMAP( ESC, NO,  NO,  NO,  NO,  NO,  NO,   7,   8,   9, PPLS,   NO,   NO,BSPC, \
+            TAB, NO,  NO,  NO,  NO,  NO,  NO,   4,   5,   6, PAST,   NO,   NO, \
+           CAPS, NO,  NO,  NO,  NO,  NO,  NO,   1,   2,   3, PMNS,   NO,  EQL, \
+           LSFT, NO,  NO,  NO,  NO,  NO,  NO,  NO,   0,  NO,  DOT, SLSH, VOLU, RSFT, \
+          LCTRL,FN1, FN2,LALT,          SPC,             NO,   NO, VOLD,   NO),
 };
 
 
