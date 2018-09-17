@@ -16,8 +16,8 @@
  * Rows:  2(D2),  3(D3),  4(D4),  5(D5), 21(A3) , 20(A2) , 19(A1) , 18(A0)
  *
  * Pin usage:
- *   COL: PD1, PD0, PD4, PC6, PD7, PE6, PB4, PB5
- *   ROW: PB5, PB6, PB1-PB3, PF5-7
+ *   COL: PD7, PE6, PB4, PB5, PB6, PB3, PB2, PB1
+ *   ROW: PD1, PD0, PD4, PC6, PF4, PF5, PF6, PF7
  */
 static uint8_t debouncing = DEBOUNCE;
 
@@ -127,13 +127,13 @@ static void select_row(uint8_t row)
     // Output low(DDR:1, PORT:0) to select
     switch (row) {
         case 0:
-	        DDRB |= (1<<5);
-			PORTB &= ~(1<<5);
-			break;
+            DDRB |= (1<<5);
+            PORTB &= ~(1<<5);
+            break;
         case 1:
-	        DDRB |= (1<<6);
-			PORTB &= ~(1<<6);
-			break;
+            DDRB |= (1<<6);
+            PORTB &= ~(1<<6);
+            break;
         case 2:
             DDRB  |=  (1<<1);
             PORTB &= ~(1<<1);
