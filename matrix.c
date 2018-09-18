@@ -36,11 +36,11 @@ void matrix_init(void)
 
     // initialize columns to input with pull-up(DDR:0, PORT:1)
 	// COL: PD7, PE6, PB1, PB2, PB3, PB4, PB5, PB6
-	DDRD  &= ~0b10000000;
+    DDRD  &= ~0b10000000;
     PORTD &=  0b10000000;
     DDRE  &= ~0b01000000;
-	PORTE &=  0b01000000;
-	DDRB  &= ~0b01111110;
+    PORTE &=  0b01000000;
+    DDRB  &= ~0b01111110;
     PORTB &=  0b01111110;
 
     // initialize matrix state: all keys off
@@ -89,21 +89,21 @@ inline
 static matrix_row_t read_cols(void)
 {
     matrix_row_t result = 0;
-	if (PIND & (1 << PD7) {
+	if (PIND & (1 << PD7)) {
 		result &= 0b00000001;
-	} else if (PINE & (1 << PE6) {
+	} else if (PINE & (1 << PE6)) {
 		result &= 0b00000010;
-	} else if (PINB & (1 << PB1) {
+	} else if (PINB & (1 << PB1)) {
 		result &= 0b00000100;
-	} else if (PINB & (1 << PB2) {
+	} else if (PINB & (1 << PB2)) {
 		result &= 0b00001000;
-	} else if (PINB & (1 << PD3) {
+	} else if (PINB & (1 << PD3)) {
 		result &= 0b00010000;
-	} else if (PINB & (1 << PE4) {
+	} else if (PINB & (1 << PB4)) {
 		result &= 0b00100000;
-	} else if (PINB & (1 << PB5) {
+	} else if (PINB & (1 << PB5)) {
 		result &= 0b01000000;
-	} else if (PINB & (1 << PB6) {
+	} else if (PINB & (1 << PB6)) {
 		result &= 0b10000000;
 	}
     return result;
