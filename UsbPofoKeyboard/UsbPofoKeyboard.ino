@@ -2,8 +2,9 @@
 #define SIZE 8
 #define matrix_row_t uint8_t
 
-int cols[SIZE] = {16, 15, 14, 10,  9,  8,  7,  6};
-int rows[SIZE] = { 2,  3,  4,  5, 18, 19, 20, 21};
+int rows[SIZE] = { 6,  7, 15, 16, 14,  8,  9, 10};
+//int cols[SIZE] = { 2,  3,  4,  5, 21, 20, 19, 18};
+int cols[SIZE] = {18, 19, 20, 21,  5,  4,  3,  2};
 uint8_t debouncing = DEBOUNCE;
 
 matrix_row_t matrix[SIZE];
@@ -60,8 +61,14 @@ void setup() {
     pinMode(cols[pin], OUTPUT);
     digitalWrite(cols[pin], HIGH);
   }
+  Serial.begin(115200);
+//  Keyboard.begin();
+}
 
-  Keyboard.begin();
+void clearAndHome()
+{
+  Serial.write(27); // ESC
+  Serial.print("[H"); // cursor to home
 }
 
 /*
@@ -80,6 +87,15 @@ void setup() {
 
 void loop() {
   matrix_scan();
-  
+  for (int i = 0; i < SIZE; i++) {
+    Serial.print(i, DEC);
+    Serial.print(": ");
+    Serial.print(matrix[i], BIN);
+    Serial.println();
+    delay(1);
+
+  }
+  delay(50);
+  clearAndHome();
 }
 
