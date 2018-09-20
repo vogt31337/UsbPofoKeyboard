@@ -1,9 +1,13 @@
+#include <Keyboard.h>
+#include "keymap.h"
+#include <avr/pgmspace.h>
+
 #define DEBOUNCE 5
 #define SIZE 8
 #define matrix_row_t uint8_t
+#define D0 PD2
 
 int rows[SIZE] = { 6,  7, 15, 16, 14,  8,  9, 10};
-//int cols[SIZE] = { 2,  3,  4,  5, 21, 20, 19, 18};
 int cols[SIZE] = {18, 19, 20, 21,  5,  4,  3,  2};
 uint8_t debouncing = DEBOUNCE;
 
@@ -13,7 +17,7 @@ matrix_row_t matrix_debouncing[SIZE];
 matrix_row_t read_rows(void) {
   matrix_row_t result = 0;
   for (int i = 0; i < SIZE; i++) {
-    if (digitalRead(rows[i]) == HIGH) {
+    if (digitalRead(rows[i]) == LOW) {
       bitSet(result, i);
     }
   }
@@ -61,6 +65,12 @@ void setup() {
     pinMode(cols[pin], OUTPUT);
     digitalWrite(cols[pin], HIGH);
   }
+
+  // Powerup Pin
+  pinMode(D0, OUTPUT);
+  digitalWrite(D0, LOW);
+  TXLED0;
+  
   Serial.begin(115200);
 //  Keyboard.begin();
 }
@@ -85,16 +95,55 @@ void clearAndHome()
  *  7 | 6       | Z       | 9       | K       | +       | L       | X       | Esc    
  */
 
+#define KEY_ATARI 0xFF
+#define KEY_FN    0xFE
+
+const uint8_t pofo_key_map[64] PROGMEM = {
+	KEY_LEFT_CTRL,    KEY_TAB,  KEY_UP_ARROW,             K_f,            K_0,             K_s,  K_LEQ, K_c,    // 0
+	          K_1,  KEY_ATARI,           K_q,             K_j,            K_s,             K_4, K_SPCE, K_b,    // 1
+	          K_3,        K_r,           K_o, KEY_RIGHT_ARROW,           0x00, KEY_RIGHT_SHIFT,  K_DOT, K_m,    // 2
+            K_5, KEY_RETURN, KEY_BACKSPACE,             K_8,           0x00,           K_CMA, KEY_FN, K_a,    // 3
+           0x00,        K_w,  KEY_LEFT_ALT,             K_h,            K_i,             K_p,    K_y, K_v,    // 4
+            K_2,        K_e,           K_u,      KEY_DELETE, KEY_LEFT_SHIFT,             K_g,   0x00, K_n,    // 5
+            K_d,        K_t,           K_7,   KEY_CAPS_LOCK, KEY_LEFT_ARROW,  KEY_DOWN_ARROW,  K_QUT, K_MNS,  // 6
+            K_6,        K_z,           K_9,             K_K,         K_PLUS,             K_L,    K_x, KEY_ESC // 7
+};
+
+uint8_t state = 0;
+long mills = 0;
+
 void loop() {
   matrix_scan();
+  int k = 0;
   for (int i = 0; i < SIZE; i++) {
     Serial.print(i, DEC);
     Serial.print(": ");
     Serial.print(matrix[i], BIN);
     Serial.println();
     delay(1);
-
+    
+	  uint8_t chr = pgm_read_byte(pofo_key_map + matrix[i] + k);
+	  k += 8;
+    if (chr == KEY_ATARI) { // atari key pressed
+      bitSet(state, 0);
+    } else if (chr == KEY_FN) { // FN key pressed
+      bitSet(state, 1);
+    } else if (bitRead(state, 0) && chr == K_o) { // if atari key + o is pressed, turn on
+      mills = millis();
+      digitalWrite(D0, HIGH);
+      TXLED1;
+      state = 0;
+    } else {
+	    Serial.println(chr);
+    }
   }
+
+  if (millis() - mills > 30000) {
+    mills = millis();
+    digitalWrite(D0, LOW); // after 30secs turn off rpi
+    TXLED0;
+  }
+  
   delay(50);
   clearAndHome();
 }
