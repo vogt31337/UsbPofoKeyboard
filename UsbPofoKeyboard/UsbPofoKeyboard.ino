@@ -113,30 +113,45 @@ uint8_t state = 0;
 long mills = 0;
 
 void loop() {
+  // scan the matrix
   matrix_scan();
+  
+  // k = row_index
   int k = 0;
+  
+  // cycle through the matrix
   for (int i = 0; i < SIZE; i++) {
-    Serial.print(i, DEC);
-    Serial.print(": ");
-    Serial.print(matrix[i], BIN);
-    Serial.println();
-    delay(1);
+	  // print the matrix
+	  Serial.print(i, DEC);
+	  Serial.print(": ");
+	  Serial.print(matrix[i], BIN);
+	  Serial.println();
+	  delay(1);
     
-	  uint8_t chr = pgm_read_byte(pofo_key_map + matrix[i] + k);
+	  // transform matrix into a number, assuming only one button is pressed
+	  int res = 0;
+	  for (int x = 1; x < SIZE+1; x++) {
+		  if (bitRead(matrix[i], x-1)) {
+			  res += x;
+		  }
+	  }
+	
+	  // fetch the char from pgm_space
+	  uint8_t chr = pgm_read_byte(pofo_key_map + res + k);
 	  k += 8;
-    if (chr == KEY_ATARI) { // atari key pressed
-      bitSet(state, 0);
-    } else if (chr == KEY_FN) { // FN key pressed
-      bitSet(state, 1);
-    } else if (bitRead(state, 0) && chr == K_o) { // if atari key + o is pressed, turn on
-      mills = millis();
-      digitalWrite(D0, HIGH);
-      TXLED1;
-      state = 0;
-    } else {
+	  if (chr == KEY_ATARI) { // atari key pressed
+        bitSet(state, 0);
+      } else if (chr == KEY_FN) { // FN key pressed
+        bitSet(state, 1);
+      } else if (bitRead(state, 0) && chr == K_o) { // if atari key + o is pressed, turn on
+        mills = millis();
+        digitalWrite(D0, HIGH);
+        TXLED1;
+        state = 0;
+      } else {
 	    Serial.println(chr);
+      }
     }
-  }
 
   if (millis() - mills > 30000) {
     mills = millis();
