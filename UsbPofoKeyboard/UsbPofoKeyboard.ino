@@ -8,13 +8,9 @@
 #define D0 PD2
 
 int rows[SIZE] = { 6,  7, 15, 16, 14,  8,  9, 10};
-<<<<<<< HEAD
 //int rows[SIZE] = {10,  9,  8, 14· 16, 15·  7,  6};
 int cols[SIZE] = { 2,  3,  4,  5, 21, 20, 19, 18};
 //int cols[SIZE] = {18, 19, 20, 21,  5,  4,  3,  2};
-=======
-int cols[SIZE] = {18, 19, 20, 21,  5,  4,  3,  2};
->>>>>>> d0919d2277ac5ec578ea0f66a9bf8c163f52a8c3
 uint8_t debouncing = DEBOUNCE;
 
 matrix_row_t matrix[SIZE];
@@ -130,8 +126,8 @@ void loop() {
 	  // print the matrix
 	  Serial.print(i, DEC);
 	  Serial.print(": ");
-	  Serial.print(matrix[i], BIN);
-	  Serial.println();
+	  Serial.print(~matrix[i], BIN);
+	  Serial.print("   ");
 	  delay(1);
     
 	  // transform matrix into a number, assuming only one button is pressed
@@ -141,11 +137,12 @@ void loop() {
 			  res += x;
 		  }
 	  }
-	
-	  // fetch the char from pgm_space
-	  uint8_t chr = pgm_read_byte(pofo_key_map + res + k);
-	  k += 8;
-	  if (chr == KEY_ATARI) { // atari key pressed
+
+    k += 8;
+    if (res != 0) {
+	    // fetch the char from pgm_space
+	    uint8_t chr = pgm_read_byte(pofo_key_map + res + k);
+	    if (chr == KEY_ATARI) { // atari key pressed
         bitSet(state, 0);
       } else if (chr == KEY_FN) { // FN key pressed
         bitSet(state, 1);
@@ -155,9 +152,12 @@ void loop() {
         TXLED1;
         state = 0;
       } else {
-	    Serial.println(chr);
+        Serial.println(chr);
       }
+    } else {
+      Serial.println();
     }
+  }
 
   if (millis() - mills > 30000) {
     mills = millis();
