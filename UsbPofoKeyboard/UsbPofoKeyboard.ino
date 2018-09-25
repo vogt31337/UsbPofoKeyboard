@@ -3,8 +3,9 @@
 #define matrix_row_t uint8_t
 
 int rows[SIZE] = { 6,  7, 15, 16, 14,  8,  9, 10};
-//int cols[SIZE] = { 2,  3,  4,  5, 21, 20, 19, 18};
-int cols[SIZE] = {18, 19, 20, 21,  5,  4,  3,  2};
+//int rows[SIZE] = {10,  9,  8, 14· 16, 15·  7,  6};
+int cols[SIZE] = { 2,  3,  4,  5, 21, 20, 19, 18};
+//int cols[SIZE] = {18, 19, 20, 21,  5,  4,  3,  2};
 uint8_t debouncing = DEBOUNCE;
 
 matrix_row_t matrix[SIZE];
