@@ -126,7 +126,7 @@ void loop() {
 	  // print the matrix
 	  Serial.print(i, DEC);
 	  Serial.print(": ");
-	  Serial.print(~matrix[i], BIN);
+	  Serial.print((uint8_t)~matrix[i], BIN);
 	  Serial.print("   ");
 	  delay(1);
     
@@ -152,7 +152,7 @@ void loop() {
         TXLED1;
         state = 0;
       } else {
-        Serial.println(chr);
+        Serial.println(char(chr));
       }
     } else {
       Serial.println();
